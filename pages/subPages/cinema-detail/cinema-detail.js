@@ -29,9 +29,11 @@ Page({
       title: '正在加载...',
     })
     wx.request({
-      url: `https://m.maoyan.com/ajax/cinemaDetail?cinemaId=${cinemaId}&movieId=${movieId}`,
+      //url: `https://m.maoyan.com/ajax/cinemaDetail?cinemaId=${cinemaId}&movieId=${movieId}`,
+      url: `http://192.168.75.128:8000/ajax/cinemaDetail?cinemaId=${cinemaId}&movieId=${movieId}`,
       success(res) {
         wx.hideLoading()
+        console.log(res)
         _this.setData({
           cinemaDetail: res.data,
           movies: _this.formatMovie(res.data.showData.movies),
@@ -110,7 +112,8 @@ Page({
           })
           if (res.confirm) {
             wx.navigateTo({
-              url: `/pages/subPages/buy-ticket/buy-ticket?paramsStr=${paramsStr}`,
+              //url: `/pages/subPages/buy-ticket/buy-ticket?paramsStr=${paramsStr}`,
+              url: '/pages/subPages/seat-select/seat-select',
             })
           }
         }

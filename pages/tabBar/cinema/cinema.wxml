@@ -11,6 +11,7 @@
     <navigator url='../../subPages/search-page/search-page?stype=2' class='search-input'>
       <text class='iconfont icon-sousuo'></text>搜影院</navigator>
   </view>
+
   <view class='nav-wrapper'>
     <filter-nav city-cinema-info='{{cityCinemaInfo}}' bindchange='changeCondition' bindtoggleShow='toggleShow'></filter-nav>
   </view>

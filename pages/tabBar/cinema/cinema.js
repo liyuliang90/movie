@@ -54,6 +54,7 @@ Page({
     this.getCinemas(this.data.params).then(() => {
       wx.hideLoading()
     })
+    /*
     wx.request({
       url: 'https://m.maoyan.com/ajax/filterCinemas',
       success(res) {
@@ -61,14 +62,15 @@ Page({
           cityCinemaInfo: res.data
         })
       }
-    })
+    })*/
   },
   //获取影院列表
   getCinemas(params) {
     const _this = this;
     return new Promise((resolve, reject) => {
       wx.request({
-        url: 'https://m.maoyan.com/ajax/cinemaList',
+        //url: 'https://m.maoyan.com/ajax/cinemaList',
+        url: 'http://192.168.75.128:8000/ajax/cinemaList',
         data: params,
         success(res) {
           resolve(res.data.cinemas)

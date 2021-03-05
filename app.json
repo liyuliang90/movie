@@ -17,7 +17,8 @@
     "pages/subPages/movie-order-detail/movie-order-detail",
     "pages/subPages/buy-snack/buy-snack",
     "pages/subPages/snack-order/snack-order",
-    "pages/subPages/video-page/video-page"
+    "pages/subPages/video-page/video-page",
+    "pages/subPages/seat-select/seat-select"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -49,9 +50,9 @@
     ]
   },
   "sitemapLocation": "sitemap.json",
-  "permission":{
+  "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
-      }
+    }
   }
 }

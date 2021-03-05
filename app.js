@@ -6,8 +6,20 @@ qqmapsdk = new QQMapWX({
 });
 
 App({
+  globalData:{},
+  getSysInfo(){
+    let that = this
+    wx.getSystemInfo({
+      success: res => {
+        that.globalData.screenHeight = res.screenHeight;
+        that.globalData.screenWidth = res.screenWidth;
+        that.globalData.statusBarHeight = res.statusBarHeight
+      }
+    })
+  },
   onLaunch: function () {
     this.initPage()
+    this.getSysInfo()
   },
   initPage(){
     // 获取用户授权信息信息,防止重复出现授权弹框

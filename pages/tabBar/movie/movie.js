@@ -68,7 +68,6 @@ Page({
       const {
         movieList = [], movieIds = []
       } = res
-      console.log('data',res)
       const movieList0 = this.formatImgUrl(movieList)
       this.setData({
         movieIds0: movieIds,
