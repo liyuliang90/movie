@@ -1,5 +1,6 @@
 const util = require('../../../utils/util.js')
-
+const app = getApp()
+const baseUrl = app.globalData.baseUrl;
 Page({
   data:{
     detailMovie:null,    //电影详情
@@ -16,9 +17,9 @@ Page({
     wx.showLoading({
       title: '加载中...',
     })
-    this.getComment(movieId)
+    //this.getComment(movieId)
     wx.request({
-      url: `https://m.maoyan.com/ajax/detailmovie?movieId=${movieId}`,
+      url: `${baseUrl}/ajax/detailmovie?movieId=${movieId}`,
       success(res) {
         wx.hideLoading()
         _this.setData({
@@ -84,6 +85,7 @@ Page({
   handleData(data){
     //小程序的{{}}中不能调用函数，只能在这里处理数据
     let obj = data
+    console.log(obj)
     obj.img = obj.img.replace('w.h','177.249')
     //将类似“v3d imax”转化为['3D','IMAX']
     obj.version = obj.version && obj.version.split(' ').map(item=>{

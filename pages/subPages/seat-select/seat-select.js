@@ -1,4 +1,6 @@
 // pages/subPages/seat-select/seat-select.js
+const app = getApp()
+const baseUrl = app.globalData.baseUrl;
 Page({
   data: {
     movieName: undefined,
@@ -43,7 +45,7 @@ Page({
     //let result = jsonData.dataList;
     wx.request({
       //url: 'https://m.maoyan.com/ajax/cinemaList',
-      url: 'http://192.168.75.128:8000/ajax/seat_select',
+      url: `${baseUrl}/ajax/seat_select`,
       //data: params,
       success(res) {
         wx.hideLoading();

@@ -1,6 +1,8 @@
 const util = require('../../../utils/util.js')
 const formatNumber = util.formatNumber
 const getRandom = util.getRandom
+const app = getApp()
+const baseUrl = app.globalData.baseUrl;
 Page({
   data: {
     cinemaId: '',
@@ -30,7 +32,7 @@ Page({
     })
     wx.request({
       //url: `https://m.maoyan.com/ajax/cinemaDetail?cinemaId=${cinemaId}&movieId=${movieId}`,
-      url: `http://192.168.75.128:8000/ajax/cinemaDetail?cinemaId=${cinemaId}&movieId=${movieId}`,
+      url: `${baseUrl}/ajax/cinemaDetail?cinemaId=${cinemaId}&movieId=${movieId}`,
       success(res) {
         wx.hideLoading()
         console.log(res)

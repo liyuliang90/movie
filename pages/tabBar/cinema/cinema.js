@@ -1,6 +1,6 @@
 const util = require('../../../utils/util.js')
-
-const app = getApp();
+const app = getApp()
+const baseUrl = app.globalData.baseUrl;
 Page({
   data: {
     city: '正在定位...',
@@ -70,7 +70,8 @@ Page({
     return new Promise((resolve, reject) => {
       wx.request({
         //url: 'https://m.maoyan.com/ajax/cinemaList',
-        url: 'http://192.168.75.128:8000/ajax/cinemaList',
+        //url: 'http://192.168.75.128:8000/ajax/cinemaList',
+        url: `${baseUrl}/ajax/cinemaList`,
         data: params,
         success(res) {
           resolve(res.data.cinemas)
