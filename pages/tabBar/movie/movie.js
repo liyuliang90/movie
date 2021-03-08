@@ -1,6 +1,6 @@
 const request = require('../../../utils/request')
 const app = getApp()
-const get = require('../../../utils/api')
+const getMovieList = require('../../../utils/api')
 Page({
   data: {
     city: '正在定位...',
@@ -63,7 +63,7 @@ Page({
     wx.showLoading({
       title: '正在加载...'
     })
-    const [res, err] = await get('/ajax/movieOnInfoList',{})
+    const [res, err] = await getMovieList()
     if (!err) {
       const {
         movieList = [], movieIds = []

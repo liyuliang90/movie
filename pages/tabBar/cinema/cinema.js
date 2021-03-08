@@ -54,15 +54,17 @@ Page({
     this.getCinemas(this.data.params).then(() => {
       wx.hideLoading()
     })
-    /*
+    
     wx.request({
-      url: 'https://m.maoyan.com/ajax/filterCinemas',
+      //url: 'https://m.maoyan.com/ajax/filterCinemas',
+      url: `${baseUrl}/ajax/filterCinemas`,
+      data:{'city_id':60},
       success(res) {
         _this.setData({
           cityCinemaInfo: res.data
         })
       }
-    })*/
+    })
   },
   //获取影院列表
   getCinemas(params) {

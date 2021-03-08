@@ -21,4 +21,10 @@ function get(url, data) {
   }).catch(err => [{}, err])
 }
 
+function getMovieList(){
+    const url = '/ajax/movieOnInfoList'
+    return get(url,{})
+}
+
 module.exports = get
+module.exports = getMovieList

@@ -31,7 +31,12 @@ App({
         } else {
           this.getUserLocation()
         }
+      },
+      fail:(res)=>{ 
+        console.log('getSetting fail')
+        console.log(res)
       }
+      
     })
   },
   //获取用户的位置信息
@@ -76,6 +81,6 @@ App({
   globalData: {
     userLocation: null, //用户的位置信息
     selectCity: null, //用户切换的城市
-    baseUrl:'http://192.168.243.133:8000',
+    baseUrl:'http://192.168.75.128:8000',
   }
 })
