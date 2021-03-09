@@ -50,7 +50,8 @@ Page({
     let days = []
     movie.shows.forEach(item => {
       days.push({
-        title: item.dateShow,
+        //title: item.dateShow,
+        title: item.showDate,
         day: item.showDate
       })
     })

@@ -1,6 +1,6 @@
 const request = require('../../../utils/request')
 const app = getApp()
-const getMovieList = require('../../../utils/api')
+const api = require('../../../utils/api')
 Page({
   data: {
     city: '正在定位...',
@@ -63,14 +63,14 @@ Page({
     wx.showLoading({
       title: '正在加载...'
     })
-    const [res, err] = await getMovieList()
+    const [res, err] = await api.getMovieList()
     if (!err) {
       const {
         movieList = [], movieIds = []
       } = res
       const movieList0 = this.formatImgUrl(movieList)
       this.setData({
-        movieIds0: movieIds,
+        //movieIds0: movieIds,
         movieList0
       })
       if (movieList.length >= movieIds.length) {
@@ -91,25 +91,15 @@ Page({
       wx.showLoading({
         title: '正在加载...'
       })
-      request({
-        api: '/ajax/mostExpected?limit=10&offset=0&token='
-      }).then(([res]) => {
+      api.getMostExpected().then(([res]) => {
         this.setData({
           mostExpectedList: this.formatImgUrl(res.coming || [], true)
         })
       }).finally(() => {
         wx.hideLoading()
       })
-      request({
-        api: '/ajax/comingList',
-        data: {
-          limit: 10,
-          optimus_uuid: 'B52C96001E4B11EA928853AC6CFDBC0221750D6FF9374A35B50A070B3195ED15',
-          optimus_risk_level: 71,
-          optimus_code: 10,
-          token: ''
-        }
-      }).then(([res]) => {
+      
+      api.getComingList().then(([res]) => {
         this.setData({
           movieIds1: res.movieIds || [],
           movieList1: this.formatImgUrl(res.coming || [])

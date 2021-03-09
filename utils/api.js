@@ -26,5 +26,20 @@ function getMovieList(){
     return get(url,{})
 }
 
+function getMostExpected(){
+    const url = '/ajax/mostExpected?limit=10&offset=0&token='
+    return get(url,{})
+}
+
+function getComingList(){
+  const url = '/ajax/comingList'
+  return get(url,{})
+}
+
 module.exports = get
-module.exports = getMovieList
+module.exports = {
+  getMovieList: getMovieList,
+  getMostExpected: getMostExpected,
+  getComingList: getComingList
+}
+//module.exports = getMostExpected

@@ -48,8 +48,9 @@ Page({
     const _this = this;
     return new Promise((resolve, reject) => {
       wx.request({
-        url: `https://m.maoyan.com/ajax/movie?forceUpdate=${Date.now()}`,
-        method: 'POST',
+        //url: `https://m.maoyan.com/ajax/movie?forceUpdate=${Date.now()}`,
+        url: `http://192.168.75.128:8000/ajax/movie?forceUpdate=${Date.now()}`,
+        method: 'GET',
         data: params,
         success(res) {
           // 缺少了城市ID所以返回值缺少showDays，只能自己模拟时间了
@@ -67,7 +68,8 @@ Page({
     const _this = this;
     const {params} = this.data
     wx.request({
-      url: `https://m.maoyan.com/ajax/filterCinemas?movieId=${params.movieId}&day=${params.day}`,
+      //url: `https://m.maoyan.com/ajax/filterCinemas?movieId=${params.movieId}&day=${params.day}`,
+      url: `http://192.168.75.128:8000/ajax/filterCinemas?movieId=${params.movieId}&day=${params.day}`,
       success(res) {
         _this.setData({
           cityCinemaInfo: res.data
