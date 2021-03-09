@@ -5000,6 +5000,7 @@ Page({
   //点击城市的事件处理程序
   selectCity(e) {
     const cityName = e.currentTarget.dataset.city.city_name
+    const cityId = e.currentTarget.dataset.city.id
     const _this = this
     if (cityName ==='定位失败，请点击重试'){
       wx.showModal({
@@ -5020,6 +5021,12 @@ Page({
         }
       })
     } else {
+      app.globalData.selectCity = { cityName }
+      app.globalData.cityId = { cityId }
+      wx.navigateBack({
+        delta: 1  // 返回上一级页面。
+      })
+      /*
       wx.showModal({
         title: '提示',
         content: '没有获取猫眼城市ID的API，所以暂不支持切换城市',
@@ -5031,7 +5038,7 @@ Page({
             })
           }
         }
-      })
+      })*/
     }
   },
   //侧边栏导航的点击事件处理

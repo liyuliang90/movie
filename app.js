@@ -60,6 +60,19 @@ App({
               cityName: cityFullname.substring(0, cityFullname.length - 1),
               status:1
             }
+            const _this = this;
+            const baseUrl = this.globalData.baseUrl
+            wx.request({
+              url: `${baseUrl}/ajax/cityLocation`,
+              data:{'city_name':cityInfo.cityName},
+              success(res) {
+                if(res.data.success){
+                    _this.globalData.cityId = res.data.city_id
+                }else{
+                  comsole.log('没有这个城市')
+                }
+              }
+            })
             this.globalData.userLocation = { ...cityInfo}   //浅拷贝对象
             this.globalData.selectCity = { ...cityInfo } //浅拷贝对象
             // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回，所以此处加入 callback 以防止这种情况
@@ -81,6 +94,7 @@ App({
   globalData: {
     userLocation: null, //用户的位置信息
     selectCity: null, //用户切换的城市
+    cityId: null,
     baseUrl:'http://192.168.75.128:8000',
   }
 })

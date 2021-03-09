@@ -36,10 +36,8 @@ function getComingList(){
   return get(url,{})
 }
 
-module.exports = get
 module.exports = {
   getMovieList: getMovieList,
   getMostExpected: getMostExpected,
-  getComingList: getComingList
+  getComingList: getComingList,
 }
-//module.exports = getMostExpected
