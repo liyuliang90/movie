@@ -1,5 +1,6 @@
 const app = getApp();
 const util = require('../../../utils/util.js')
+const api = require('../../../utils/api')
 const throttle = util.throttle
 const citys = [{
     'id': '1',
@@ -4891,12 +4892,16 @@ Page({
     sections: [], //所有section，保存每个section的节点在文档的位置信息
     inNavbar: false, //手指是否在侧边导航，主要是区别后面wx.pageScrollTo触发的滚动还是直接触发的滚动
     searchValue: '', //查询值
-    result: [] //城市查询结果列表
+    result: [], //城市查询结果列表
+    citys: null
   },
   onLoad() {
-    this.normalizeCityList(citys)
+    this.normalizeCityList()
   },
   onReady() {
+  },
+
+  initPage(){
     const query = wx.createSelectorQuery()
     query.select('.citylist-nav').boundingClientRect();
     query.select('.citylist-nav-item').boundingClientRect();
@@ -4926,6 +4931,7 @@ Page({
   onUnload(){
     wx.hideToast()
   },
+
   //页面滚动监听，使用函数节流优化
   onPageScroll: throttle(function(e){
     if (this.data.inNavbar || this.data.searchValue) {
@@ -4949,7 +4955,12 @@ Page({
     }
   },
   //处理API返回的城市列表数据
-  normalizeCityList(citys) {
+  async normalizeCityList() {
+    const [res, err] = await api.getCitys()
+    if (err){
+      return
+    }
+    const citys = res.citys
     let map = {}
     citys.forEach(item => {
       const key = item.city_pre.toUpperCase()
@@ -4996,6 +5007,7 @@ Page({
     this.setData({
       citylist: list
     })
+    this.initPage()
   },
   //点击城市的事件处理程序
   selectCity(e) {
@@ -5021,8 +5033,8 @@ Page({
         }
       })
     } else {
-      app.globalData.selectCity = { cityName }
-      app.globalData.cityId = { cityId }
+      app.globalData.selectCity.cityName = cityName 
+      app.globalData.cityId = cityId 
       wx.navigateBack({
         delta: 1  // 返回上一级页面。
       })

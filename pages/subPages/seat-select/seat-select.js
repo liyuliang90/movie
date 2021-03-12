@@ -1,8 +1,12 @@
 // pages/subPages/seat-select/seat-select.js
+const util = require('../../../utils/util.js')
 const app = getApp()
+const getRandom = util.getRandom
 const baseUrl = app.globalData.baseUrl;
 Page({
   data: {
+    cinemaName: null,
+    cinemaId: null,
     movieName: undefined,
     planDetail: undefined,
     seatList: [],
@@ -13,17 +17,41 @@ Page({
     maxSelect: 4,
     totalPrice: 0,
     loadComplete: false,
-    timer: null
+    timer: null,
+    order:null
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function() {
+  /*onLoad: function() {
     let that = this;
+    wx.setNavigationBarTitle({
+      title: '趣味表情' 
+    })
     that.setData({
       seatArea: getApp().globalData.screenHeight - getApp().globalData.statusBarHeight - (500 * getApp().globalData.screenWidth / 750),
       rpxToPx: getApp().globalData.screenWidth / 750
     });
+  },*/
+
+  onLoad(params){
+    const paramsObj = JSON.parse(params.paramsStr)
+    wx.setNavigationBarTitle({
+      title: paramsObj.cinemaName
+    })
+    let that = this;
+    that.setData({
+      cinemaName: paramsObj.cinemaName,
+      cinemaId: paramsObj.cinemaId,
+      movieName: paramsObj.movieName,
+      planDetail: paramsObj.time,
+      hallName: paramsObj.hall,
+      order:params.paramsStr,
+
+      seatArea: getApp().globalData.screenHeight - getApp().globalData.statusBarHeight - (500 * getApp().globalData.screenWidth / 750),
+      rpxToPx: getApp().globalData.screenWidth / 750
+    });
+
   },
 
   /**
@@ -53,9 +81,9 @@ Page({
         if (result.errorCode == 0) {
           let seatList = that.prosessSeatList(result);
           that.setData({
-            movieName: result.movieName,
-            planDetail: result.showTime,
-            hallName: result.name,
+            //movieName: result.movieName,
+            //planDetail: result.showTime,
+            //hallName: result.name,
             seatList: seatList,
             seatTypeList: result.seatTypeList,
             selectedSeat: [],
@@ -491,12 +519,30 @@ Page({
         seatIds.push(selectSeatInfo[i].id);
       }
     }
+
+    const paramsStr = JSON.stringify({
+      cinemaName: this.data.cinemaName,//电影院名
+      cinemaId: this.data.cinemaId,//电影院ID
+      hall: this.data.hallName,//大厅
+      movieName: this.data.movieName,//电影名
+      time: this.data.planDetail,
+      price: 37,
+      seat:'5排6座',
+      orderId: getRandom(1000000000, 9999999999), //模拟10位数的订单号,
+    })
+
+    const paramsStr2 = this.data.order
+    console.log('paramsStr2')
+    console.log(paramsStr2)
+    wx.navigateTo({
+      url: `/pages/subPages/buy-ticket/buy-ticket?paramsStr=${paramsStr2}`,
+    })
     //这里编写开始创建订单逻辑
-    wx.showToast({
+    /*wx.showToast({
       title: '这里编写开始创建订单逻辑~',
       icon: 'none',
       duration: 2000
-    })
+    })*/
     return
   },
   //生成最佳座位

@@ -164,7 +164,7 @@ page {
   border-right: 20rpx solid transparent;
   border-left: 20rpx solid transparent;
   line-height: 30rpx;
-  color: white;
+  color: black;
   position: absolute;
   top: -100rpx;
   z-index: 2;
@@ -178,7 +178,7 @@ page {
 */
 
 .hallName text {
-  font-size: 20rpx;
+  font-size: 28rpx;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);

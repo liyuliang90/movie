@@ -1,3 +1,4 @@
+const api = require('../../../utils/api.js');
 const util = require('../../../utils/util.js')
 const app = getApp()
 const baseUrl = app.globalData.baseUrl;
@@ -43,6 +44,7 @@ Page({
       this.setData({
         city: app.globalData.selectCity.cityName
       })
+      this.initPage()
     }
   },
   //初始化页面
@@ -54,16 +56,10 @@ Page({
     this.getCinemas(this.data.params).then(() => {
       wx.hideLoading()
     })
-    
-    wx.request({
-      //url: 'https://m.maoyan.com/ajax/filterCinemas',
-      url: `${baseUrl}/ajax/filterCinemas`,
-      data:{'city_id':60},
-      success(res) {
+    api.getFilterCinemas().then(([res]) => {
         _this.setData({
-          cityCinemaInfo: res.data
+            cityCinemaInfo: res
         })
-      }
     })
   },
   //获取影院列表
@@ -71,10 +67,12 @@ Page({
     const _this = this;
     return new Promise((resolve, reject) => {
       wx.request({
-        //url: 'https://m.maoyan.com/ajax/cinemaList',
-        //url: 'http://192.168.75.128:8000/ajax/cinemaList',
         url: `${baseUrl}/ajax/cinemaList`,
-        data: params,
+        data: {...params,
+          lat:app.globalData.selectCity.latitude,
+          lng:app.globalData.selectCity.longitude,
+          city_id:app.globalData.cityId
+          },
         success(res) {
           resolve(res.data.cinemas)
           _this.setData({

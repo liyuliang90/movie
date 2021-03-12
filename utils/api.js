@@ -1,4 +1,3 @@
-//const baseUrl = 'http://192.168.75.128:8000'
 const app = getApp()
 const baseUrl = app.globalData.baseUrl;
 function get(url, data) {
@@ -35,9 +34,21 @@ function getComingList(){
   const url = '/ajax/comingList'
   return get(url,{})
 }
+function getFilterCinemas(){
+  const url = '/ajax/filterCinemas'
+  const param = {'city_id':app.globalData.cityId}
+  return get(url,param)
+}
+
+function getCitys(){
+  const url = '/ajax/citys'
+  return get(url,{})
+}
 
 module.exports = {
   getMovieList: getMovieList,
   getMostExpected: getMostExpected,
   getComingList: getComingList,
+  getFilterCinemas: getFilterCinemas,
+  getCitys: getCitys
 }

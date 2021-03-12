@@ -35,11 +35,10 @@ Page({
       url: `${baseUrl}/ajax/cinemaDetail?cinemaId=${cinemaId}&movieId=${movieId}`,
       success(res) {
         wx.hideLoading()
-        console.log(res)
         _this.setData({
           cinemaDetail: res.data,
           movies: _this.formatMovie(res.data.showData.movies),
-          divideDealList: _this.formatUrl(res.data.dealList.divideDealList)
+          //divideDealList: _this.formatUrl(res.data.dealList.divideDealList)
         })
       }
     })
@@ -116,7 +115,7 @@ Page({
           if (res.confirm) {
             wx.navigateTo({
               //url: `/pages/subPages/buy-ticket/buy-ticket?paramsStr=${paramsStr}`,
-              url: '/pages/subPages/seat-select/seat-select',
+              url: `/pages/subPages/seat-select/seat-select?paramsStr=${paramsStr}`,
             })
           }
         }
