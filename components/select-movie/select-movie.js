@@ -1,5 +1,8 @@
 
 Component({
+  options:{
+    addGlobalClass:true,
+  },
   properties: {
     movies: {
       type: Array,
@@ -18,7 +21,7 @@ Component({
       type: String,
       value: '',
       observer: function(movie) {
-        // movie && this.selectMovie()
+         movie && this.selectMovie()
       }
     }
   },

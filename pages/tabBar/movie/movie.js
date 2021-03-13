@@ -52,6 +52,7 @@ Page({
       movieIds1,
       loadComplete1
     } = this.data
+    console.log('test')
     if (this.data.switchItem === 0) {
       this.ReachBottom(movieList0, movieIds0, loadComplete0, 0)
     } else {

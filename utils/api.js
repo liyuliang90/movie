@@ -34,9 +34,18 @@ function getComingList(){
   const url = '/ajax/comingList'
   return get(url,{})
 }
-function getFilterCinemas(){
+
+function getAjaxMovie(params){
+  const url = `/ajax/movie?forceUpdate=${Date.now()}`
+  return get(url,params)
+}
+
+function getFilterCinemas(params){
   const url = '/ajax/filterCinemas'
-  const param = {'city_id':app.globalData.cityId}
+  const param = {
+    'city_id':app.globalData.cityId,
+    ...params
+  }
   return get(url,param)
 }
 
@@ -50,5 +59,6 @@ module.exports = {
   getMostExpected: getMostExpected,
   getComingList: getComingList,
   getFilterCinemas: getFilterCinemas,
-  getCitys: getCitys
+  getCitys: getCitys,
+  getAjaxMovie: getAjaxMovie,
 }

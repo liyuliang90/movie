@@ -85,7 +85,6 @@ Page({
   handleData(data){
     //小程序的{{}}中不能调用函数，只能在这里处理数据
     let obj = data
-    console.log(obj)
     obj.img = obj.img.replace('w.h','177.249')
     //将类似“v3d imax”转化为['3D','IMAX']
     obj.version = obj.version && obj.version.split(' ').map(item=>{

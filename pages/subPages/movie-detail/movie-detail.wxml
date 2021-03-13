@@ -12,7 +12,7 @@
         <view wx:if='{{detailMovie.globalReleased}}'>
           <view wx:if='{{detailMovie.sc}}'>
             <view class='movie-score line-ellipsis'>
-              <image class='movie-star' wx:for='{{detailMovie.stars}}' wx:key='{{index}}' src='/assets/images/{{item}}.png'></image>
+              <image class='movie-star' wx:for='{{detailMovie.stars}}' wx:key='index' src='/assets/images/{{item}}.png'></image>
               {{detailMovie.sc}}
             </view>
             <view class='score-num line-ellipsis'>({{detailMovie.snum}}万人评分)</view>
@@ -50,7 +50,7 @@
           <image src='{{detailMovie.videoImg}}' class='videoImg' mode='aspectFill'></image>
           <view class='iconfont icon-zanting'></view>
         </view>
-        <image wx:for='{{detailMovie.photos}}' wx:key='{{item}}' src='{{item}}' class='photo' mode='aspectFill' bindtap='previewImage' data-index='{{index}}'></image>
+        <image wx:for='{{detailMovie.photos}}' wx:key='item' src='{{item}}' class='photo' mode='aspectFill' bindtap='previewImage' data-index='{{index}}'></image>
       </scroll-view>
     </view>
     <view class='section' wx:if='{{comments.total && comments.hcmts.length}}'>

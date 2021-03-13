@@ -24,7 +24,7 @@
   </view>
   <view>
     <view wx:if='{{timeList.length}}'>
-      <view class='time' wx:for='{{timeList}}' wx:key='{{item.tm}}' class='item' bindtap='buyTicket' data-info='{{item}}'>
+      <view class='time' wx:for='{{timeList}}' wx:key='tm' class='item' bindtap='buyTicket' data-info='{{item}}'>
         <view class='time-block box'>
           <view class='begin'>{{item.tm}}</view>
           <view class='end'>{{item.endTime}} 散场</view>

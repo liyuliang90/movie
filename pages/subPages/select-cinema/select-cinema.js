@@ -1,3 +1,6 @@
+const app = getApp()
+const baseUrl = app.globalData.baseUrl;
+const api = require('../../../utils/api.js');
 Page({
   data: {
     showTime:'',//影片上映日期
@@ -49,7 +52,7 @@ Page({
     return new Promise((resolve, reject) => {
       wx.request({
         //url: `https://m.maoyan.com/ajax/movie?forceUpdate=${Date.now()}`,
-        url: `http://192.168.75.128:8000/ajax/movie?forceUpdate=${Date.now()}`,
+        url: `${baseUrl}/ajax/movie?forceUpdate=${Date.now()}`,
         method: 'GET',
         data: params,
         success(res) {
@@ -66,15 +69,14 @@ Page({
   //获取过滤菜单数据
   getFilter() {
     const _this = this;
-    const {params} = this.data
-    wx.request({
-      //url: `https://m.maoyan.com/ajax/filterCinemas?movieId=${params.movieId}&day=${params.day}`,
-      url: `http://192.168.75.128:8000/ajax/filterCinemas?movieId=${params.movieId}&day=${params.day}`,
-      success(res) {
-        _this.setData({
-          cityCinemaInfo: res.data
-        })
-      }
+    const params = {
+      movieId: this.data.params.movieId,
+      day: this.data.params.day
+    }
+    api.getFilterCinemas(params).then(([res])=>{
+      _this.setData({
+        cityCinemaInfo: res
+      })
     })
   },
   //当选择的时间变化时触发
