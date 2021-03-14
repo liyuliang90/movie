@@ -202,3 +202,26 @@
   text-align: center;
   border-top: 1px solid #e6e6e6;
 }
+.layout_horizontal{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+}
+
+.layout_vertical{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: column;
+}
+
+.star_name{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.actor{
+  width: 140rpx;
+  height: 180rpx;
+  margin-left: 10rpx;
+}

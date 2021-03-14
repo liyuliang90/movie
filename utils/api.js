@@ -40,6 +40,11 @@ function getAjaxMovie(params){
   return get(url,params)
 }
 
+function getActor(params){
+  const url = '/ajax/actor'
+  return get(url,params)
+}
+
 function getFilterCinemas(params){
   const url = '/ajax/filterCinemas'
   const param = {
@@ -61,4 +66,5 @@ module.exports = {
   getFilterCinemas: getFilterCinemas,
   getCitys: getCitys,
   getAjaxMovie: getAjaxMovie,
+  getActor: getActor,
 }

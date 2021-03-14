@@ -1,15 +1,18 @@
+const api = require('../../../utils/api.js');
 const util = require('../../../utils/util.js')
 const app = getApp()
 const baseUrl = app.globalData.baseUrl;
 Page({
   data:{
     detailMovie:null,    //电影详情
+    actor:null,
     isFold:false,
     comments:{}   //观众评论
   },
   onLoad(options){
     const movieId = options.movieId
     this.initPage(movieId)
+    this.getActor(movieId)
   },
   //初始页面
   initPage(movieId){
@@ -26,6 +29,17 @@ Page({
           detailMovie: _this.handleData(res.data.detailMovie)
         })
       }
+    })
+  },
+
+  getActor(movieId){
+    const params = {
+      movie_id:movieId,
+    }
+    api.getActor(params).then(([res])=>{
+      this.setData({
+        actor:res.actor
+      })
     })
   },
   //获取观众评论

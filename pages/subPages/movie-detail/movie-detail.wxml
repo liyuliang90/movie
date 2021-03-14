@@ -40,7 +40,15 @@
     </view>
     <view class='section'>
       <view class='section-title'>演职人员</view>
-      <scroll-view scroll-x class='scroll-view_H'>暂无数据...</scroll-view>
+      <scroll-view scroll-x class='scroll-view_H'>
+        <view class='layout_horizontal'>
+          <view class='layout_vertical' wx:for='{{actor}}' wx:key='item'>
+            <image src='{{item.avatar}}' class='actor' data-index='{{index}}'></image>
+            <text class='star_name'>{{item.name}}</text>
+            <text class='star_name'>{{item.desc}}</text>
+          </view>
+        </view>
+      </scroll-view>
     </view>
     <view class='section'>
       <view class='section-title'>媒体库</view>
