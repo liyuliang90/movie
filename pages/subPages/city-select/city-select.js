@@ -5034,7 +5034,7 @@ Page({
       })
     } else {
       app.globalData.selectCity.cityName = cityName 
-      app.globalData.cityId = cityId 
+      app.globalData.selectCity.id = cityId 
       wx.navigateBack({
         delta: 1  // 返回上一级页面。
       })

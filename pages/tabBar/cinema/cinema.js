@@ -37,12 +37,21 @@ Page({
         })
       }
     }
-    this.initPage()
+
+    //this.initPage()
   },
   onShow() {
     if (app.globalData.selectCity) {
       this.setData({
         city: app.globalData.selectCity.cityName
+      })
+      
+      this.setData({
+        params: { 
+          districtId:-1
+        },
+        cinemas: [],
+        nothing: false
       })
       this.initPage()
     }
@@ -65,13 +74,19 @@ Page({
   //获取影院列表
   getCinemas(params) {
     const _this = this;
+    var lat = 0;
+    var lng = 0;
+    if (app.globalData.selectCity.id == app.globalData.userLocation.id){
+        lat = app.globalData.selectCity.latitude
+        lng = app.globalData.selectCity.longitude
+    }
     return new Promise((resolve, reject) => {
       wx.request({
         url: `${baseUrl}/ajax/cinemaList`,
         data: {...params,
-          lat:app.globalData.selectCity.latitude,
-          lng:app.globalData.selectCity.longitude,
-          city_id:app.globalData.cityId
+          lat:lat,
+          lng:lng,
+          city_id:app.globalData.selectCity.id
           },
         success(res) {
           resolve(res.data.cinemas)

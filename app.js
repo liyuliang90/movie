@@ -54,7 +54,8 @@ App({
           },
           success: (res) => {
             const cityFullname = res.result.address_component.city;
-            const cityInfo = {
+            var cityInfo = {
+              id:null,
               latitude,
               longitude,
               cityName: cityFullname.substring(0, cityFullname.length - 1),
@@ -67,7 +68,8 @@ App({
               data:{'city_name':cityInfo.cityName},
               success(res) {
                 if(res.data.success){
-                    _this.globalData.cityId = res.data.city_id
+                    _this.globalData.selectCity.id = res.data.city_id
+                    _this.globalData.userLocation.id = res.data.city_id
                 }else{
                   comsole.log('没有这个城市')
                 }
@@ -94,7 +96,7 @@ App({
   globalData: {
     userLocation: null, //用户的位置信息
     selectCity: null, //用户切换的城市
-    cityId: null,
+    //cityId: null,
     baseUrl:'http://192.168.75.128:8000',
   }
 })

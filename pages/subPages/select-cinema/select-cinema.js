@@ -47,12 +47,22 @@ Page({
     //select-time会触发事件来调用changeTime初始化数据
   },
   //获取影院列表
-  getCinemas(params) {
+  getCinemas() {
     const _this = this;
     return new Promise((resolve, reject) => {
+      const params = {
+          cityId: app.globalData.selectCity.id,
+          districtId: _this.data.params.districtId,
+          movieId: _this.data.params.movieId,
+          showTime: _this.data.params.day,
+          lng:app.globalData.selectCity.longitude,
+          lat:app.globalData.selectCity.latitude,
+          limit:_this.data.params.limit,
+          offset: _this.data.cinemas.length
+      }
       wx.request({
         //url: `https://m.maoyan.com/ajax/movie?forceUpdate=${Date.now()}`,
-        url: `${baseUrl}/ajax/movie?forceUpdate=${Date.now()}`,
+        url: `${baseUrl}/ajax/movie`,
         method: 'GET',
         data: params,
         success(res) {
@@ -91,7 +101,7 @@ Page({
       wx.showLoading({
         title: '正在加载...'
       })
-      this.getCinemas(this.data.params).then((list) => {
+      this.getCinemas().then((list) => {
         wx.hideLoading()
         if (!list.length) {
           this.setData({
@@ -116,7 +126,7 @@ Page({
       cinemas: [],
       nothing: false
     }, () => {
-      this.getCinemas(this.data.params).then((list) => {
+      this.getCinemas().then((list) => {
         if (!list.length) {
           this.setData({
             nothing: true
@@ -138,10 +148,6 @@ Page({
     if (this.data.loadComplete) {
       return
     }
-    const params = {
-      ...this.data.params,
-      offset: this.data.cinemas.length
-    }
-    this.getCinemas(params)
+    this.getCinemas()
   }
 })

@@ -35,11 +35,6 @@ function getComingList(){
   return get(url,{})
 }
 
-function getAjaxMovie(params){
-  const url = `/ajax/movie?forceUpdate=${Date.now()}`
-  return get(url,params)
-}
-
 function getActor(params){
   const url = '/ajax/actor'
   return get(url,params)
@@ -48,7 +43,7 @@ function getActor(params){
 function getFilterCinemas(params){
   const url = '/ajax/filterCinemas'
   const param = {
-    'city_id':app.globalData.cityId,
+    'city_id':app.globalData.selectCity.id,
     ...params
   }
   return get(url,param)
@@ -65,6 +60,5 @@ module.exports = {
   getComingList: getComingList,
   getFilterCinemas: getFilterCinemas,
   getCitys: getCitys,
-  getAjaxMovie: getAjaxMovie,
   getActor: getActor,
 }
