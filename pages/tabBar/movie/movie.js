@@ -7,12 +7,12 @@ Page({
     switchItem: 0, //默认选择‘正在热映’
     //‘正在热映’数据
     movieList0: [],
-    movieIds0: [],
+    //movieIds0: [],
     loadComplete0: false, //‘正在上映’数据是否加载到最后一条
     //‘即将上映’数据
     mostExpectedList: [],
     movieList1: [],
-    movieIds1: [],
+    //movieIds1: [],
     loadComplete1: false,
     loadComplete2: false //水平滚动加载的数据是否加载完毕
   },
@@ -54,9 +54,9 @@ Page({
     } = this.data
     console.log('test')
     if (this.data.switchItem === 0) {
-      this.ReachBottom(movieList0, movieIds0, loadComplete0, 0)
+      this.ReachBottom(movieList0, loadComplete0, 0)
     } else {
-      this.ReachBottom(movieList1, movieIds1, loadComplete1, 1)
+      this.ReachBottom(movieList1, loadComplete1, 1)
     }
   },
   //第一次加载页面时请求‘正在热映的数据’
@@ -64,26 +64,23 @@ Page({
     wx.showLoading({
       title: '正在加载...'
     })
-    const [res, err] = await api.getMovieList()
+    const params = {
+      limit:12,
+      offset:0,
+      showst:3
+    }
+    const [res, err] = await api.getMovieList(params)
     if (!err) {
-      const {
-        movieList = [], movieIds = []
-      } = res
-      const movieList0 = this.formatImgUrl(movieList)
+      const movieList0 = this.formatImgUrl(res.movieList)
       this.setData({
-        //movieIds0: movieIds,
-        movieList0
+        movieList0: this.data.movieList0.concat(movieList0),
+        loadComplete0: !res.paging.hasMore
       })
-      if (movieList.length >= movieIds.length) {
-        this.setData({
-          loadComplete0: true
-        })
-      }
     }
     wx.hideLoading()
   },
   //切换swtch
-  selectItem(e) {
+  async selectItem(e) {
     const item = e.currentTarget.dataset.item
     this.setData({
       switchItem: item
@@ -99,35 +96,47 @@ Page({
       }).finally(() => {
         wx.hideLoading()
       })
-      
+      /*const params = {
+        limit:12,
+        offset:0,
+        showst:1
+      }
+      const [res, err] = await api.getMovieList(params)
+      if (!err) {
+        const list = this.formatImgUrl(res.movieList)
+        this.setData({
+          movieList1: this.data.movieList1.concat(list),
+          loadComplete1: !res.paging.hasMore
+        })
+      }*/
+
       api.getComingList().then(([res]) => {
         this.setData({
-          movieIds1: res.movieIds || [],
           movieList1: this.formatImgUrl(res.coming || [])
         })
       })
     }
   },
   //上拉触底刷新的加载函数
-  async ReachBottom(list, ids, complete, item) {
+  async ReachBottom(list, complete, item) {
     if (complete) {
       return
     }
-    const length = list.length
-    if (length + 10 >= ids.length) {
-      this.setData({
-        [`loadComplete${item}`]: true
-      })
+    let showst = 3
+    if (item==1){
+        showst = 1
     }
-    let query = ids.slice(length, length + 10).join('%2C')
-    const url = `https://m.maoyan.com/ajax/moreComingList?token=&movieIds=${query}`
-    const [res,err] = await request({
-      api:`/ajax/moreComingList?token=&movieIds=${query}`
-    })
-    if(!err){
-      const arr = list.concat(this.formatImgUrl(res.coming || []))
+    const params = {
+      limit:12,
+      offset:list.length,
+      showst:showst
+    }
+    const [res, err] = await api.getMovieList(params)
+    if (!err) {
+      const more_list = this.formatImgUrl(res.movieList)
       this.setData({
-        [`movieList${item}`]: arr,
+        [`movieList${item}`]: list.concat(more_list),
+        [`loadComplete${item}`]: !res.paging.hasMore
       })
     }
   },

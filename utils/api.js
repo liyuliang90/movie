@@ -20,9 +20,9 @@ function get(url, data) {
   }).catch(err => [{}, err])
 }
 
-function getMovieList(){
+function getMovieList(params){
     const url = '/ajax/movieOnInfoList'
-    return get(url,{})
+    return get(url,params)
 }
 
 function getMostExpected(){
